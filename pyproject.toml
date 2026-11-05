@@ -1,0 +1,174 @@
+[project]
+name = "touchpoints-dash"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Gustavo Camargo", email = "you@example.com" }
+]
+requires-python = ">=3.14"
+dependencies = []
+
+[project.scripts]
+touchpoints-dash = "touchpoints_dash:main"
+
+[build-system]
+requires = ["uv_build>=0.12.6,<0.13.0"]
+build-backend = "uv_build"
+# Ruff config
+[tool.ruff]
+output-format = "concise"
+extend-exclude = ["src/holder/drafts", "**/drafts/**"]
+line-length = 88
+indent-width = 4
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.ruff.lint]
+preview = true
+select = [
+    "D",
+    "E",
+    "W",
+    #    "DOC",
+    # mccabe (code complexity)
+    #    "C90",
+    "F",
+    "N",
+    "UP",
+    "B",
+    "SIM",
+    "I",
+    # Others
+    "YTT",
+    "ANN",
+    "S", # bandit
+    "FBT",
+    "A",
+    "COM",
+    "C4",
+    "DTZ",
+    "T10",
+    "FA",
+    "ISC",
+    "ICN",
+    "G",
+    "INP",
+    "PIE",
+    "T20", # print finder
+    "PYI",
+    "PT",
+    "Q",
+    "RSE",
+    "RET",
+    "SLF",
+    "SLOT",
+    "TID",
+    "TC",
+    "INT",
+    "ARG",
+    "PTH", # change from strings to path obj
+    #    "TD",  # TODOs
+    "FIX",
+    "ERA",
+    "PD",
+    "PGH",
+    "PL",
+    "TRY",
+    "FLY",
+    "NPY",
+    "AIR",
+    "PERF",
+    "FURB",
+    "LOG",
+    "RUF",
+    "ASYNC"
+]
+ignore = [
+    "missing-trailing-comma", # conflicts with the formatter (trailing-comma)
+    "assert", # assert use
+    "unnecessary-assign", # unnecessary return
+    "too-many-branches", # Too many branches
+    "too-many-arguments", # too many args
+    "too-many-statements", #Too many statements
+    "raise-vanilla-args",
+    "pandas-use-of-pd-merge", # let's use pd.merge
+    "line-contains-todo", # asks to solve TODOs
+    "missing-todo-link", # asks for an issue link for TODOs
+    "hardcoded-sql-expression", # SQL injection
+    "invalid-argument-name", # X variable
+    "commented-out-code", # commented out code
+    "too-many-positional-arguments", # positional args too many
+    "print", # print found
+    "missing-type-kwargs",
+    "missing-type-args",
+    "non-lowercase-variable-in-function",
+    "private-member-access",
+    "suspicious-subprocess-import",
+    "subprocess-without-shell-equals-true",
+    "start-process-with-partial-path",
+    "too-many-locals",
+    "used-dummy-variable",
+    "line-too-long",
+    "raise-within-try",
+    "request-with-no-cert-validation"
+]
+fixable = ["ALL"]
+[tool.ruff.lint.flake8-import-conventions.aliases]
+altair = "alt"
+"matplotlib.pyplot" = "plt"
+numpy = "np"
+pandas = "pd"
+seaborn = "sns"
+
+[tool.ruff.lint.isort]
+# so it knows to group first-party stuff last
+known-first-party = ["holder"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/{tests,docs,tools}/*" = ["magic-value-comparison", "no-self-use", "missing-return-type-undocumented-public-function", "missing-type-function-argument", "D", "unused-variable", "ANN", "unused-function-argument", "pytest-raises-too-broad", "unused-unpacked-variable", "assert-raises-exception", "S", "pytest-raises-with-multiple-statements", "import-private-name"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+# Development dependencies section for UV
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pyrefly",
+]
+
+[tool.pyrefly]
+project-includes = [
+    "**/*.py*",
+    "**/*.ipynb",
+]
+project-excludes = [
+    "**/drafts/**",
+    "**/examples/**",
+    "docker/**",
+]
+[tool.pyrefly.errors]
+bad-argument-type = false
+missing-attribute = false
+no-matching-overload = false
+unsupported-operation = false
+bad-return = false
+not-iterable = false
+bad-index = false
+
+[dependency-groups]
+dev = [
+    "mkdocs-macros-plugin>=1.5.0",
+    "mkdocs-material>=9.8.0",
+    "mkdocstrings>=1.0.8",
+    "mkdocstrings-python>=2.0.10",
+    "pre-commit>=4.7.0",
+    "pyrefly>=1.4.1",
+    "pytest>=9.2.0",
+    "pytest-cov>=7.1.0",
+    "pytest-xdist>=3.8.0",
+    "ruff>=0.17.4",
+]

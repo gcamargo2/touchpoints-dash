@@ -1,0 +1,49 @@
+repos:
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.17.4
+  hooks:
+  - id: ruff-format
+    exclude: ^src/holder/drafts/
+  - id: ruff-check
+    args: [--fix]
+    exclude: ^(src/holder/drafts/|docker/)
+
+- repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+  rev: v2.16.0
+  hooks:
+  - id: pretty-format-yaml
+    args: [--autofix]
+    files: \.(ya?ml)$
+    exclude: ^(src/holder/drafts/|docker/)
+
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v6.0.0
+  hooks:
+  - id: check-yaml
+  - id: check-ast
+  - id: requirements-txt-fixer
+  - id: trailing-whitespace
+    exclude: \.csv$
+  - id: end-of-file-fixer
+  - id: check-added-large-files
+    args: [--maxkb=2000]
+  - id: debug-statements
+  - id: check-merge-conflict
+  - id: detect-private-key
+  - id: check-case-conflict
+  - id: mixed-line-ending
+  - id: check-json
+  - id: check-toml
+  - id: check-vcs-permalinks
+    language_version: python3
+
+- repo: local
+  hooks:
+  - id: pyrefly
+    name: pyrefly
+    entry: uv run pyrefly check
+    language: system
+    types_or: [python, pyi]
+    pass_filenames: false
+    require_serial: true
+    exclude: ^(src/holder/drafts/|.*/examples/)
