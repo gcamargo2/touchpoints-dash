@@ -85,3 +85,6 @@ df = df[df["Business Unit Lead"].notna()]
 df.to_parquet(
     "/Users/gustavo.camargo/dev/touchpoints-dash/src/touchpoints_dash/data/touchpoint_data.parquet"
 )
+df = pd.read_parquet(
+    "/Users/gustavo.camargo/dev/touchpoints-dash/src/touchpoints_dash/data/touchpoint_data.parquet"
+)
