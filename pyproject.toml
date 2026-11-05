@@ -7,7 +7,23 @@ authors = [
     { name = "Gustavo Camargo", email = "you@example.com" }
 ]
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "bayer-api",
+    "mkdocs-macros-plugin>=1.5.0",
+    "mkdocs-material>=9.8.0",
+    "mkdocstrings>=1.0.8",
+    "mkdocstrings-python>=2.0.10",
+    "openpyxl>=3.1.5",
+    "pandas-gbq>=0.35.3",
+    "pre-commit>=4.7.0",
+    "pydantic>=2.14.3",
+    "pyrefly>=1.4.1",
+    "pytest>=9.2.0",
+    "pytest-cov>=7.1.0",
+    "pytest-xdist>=3.8.0",
+    "ruff>=0.17.4",
+    "tqdm>=4.70.1",
+]
 
 [project.scripts]
 touchpoints-dash = "touchpoints_dash:main"
@@ -127,6 +143,9 @@ seaborn = "sns"
 # so it knows to group first-party stuff last
 known-first-party = ["holder"]
 
+[tool.ruff.lint.flake8-type-checking]
+runtime-evaluated-decorators = ["pydantic.validate_call"]
+
 [tool.ruff.lint.per-file-ignores]
 "**/{tests,docs,tools}/*" = ["magic-value-comparison", "no-self-use", "missing-return-type-undocumented-public-function", "missing-type-function-argument", "D", "unused-variable", "ANN", "unused-function-argument", "pytest-raises-too-broad", "unused-unpacked-variable", "assert-raises-exception", "S", "pytest-raises-with-multiple-statements", "import-private-name"]
 
@@ -158,6 +177,9 @@ unsupported-operation = false
 bad-return = false
 not-iterable = false
 bad-index = false
+
+[tool.uv.sources]
+bayer-api = { git = "https://github.com/bayer-int/bayer-api.git" }
 
 [dependency-groups]
 dev = [
